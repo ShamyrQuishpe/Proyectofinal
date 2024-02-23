@@ -34,6 +34,13 @@ public class Admin extends JFrame{
                 dispose();
             }
         });
+        agregarProductosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RegistrarProductos registroP = new RegistrarProductos();
+                registroP.iniciar();
+            }
+        });
     }
     public void abrir(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
