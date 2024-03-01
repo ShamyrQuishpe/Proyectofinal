@@ -27,6 +27,7 @@ public class RegistrarProductos extends JFrame {
     private JButton buscarButton;
     private JButton actualizarButton;
     private JButton eliminarButton;
+    private JButton menuButton;
 
     private static byte[] imagen;
 
@@ -42,7 +43,9 @@ public class RegistrarProductos extends JFrame {
         //Dar tamanio al panel de los datos y al panel de la tabla
         // Establecer un tamaño específico para panelSecundario
         panelDatos.setPreferredSize(new Dimension(300, 300));
+        panelDatos.setBackground(new Color(234, 211, 186));
         panelTabla.setPreferredSize(new Dimension(500, 400));
+
 
         //Cargar los repuestos ingresados
         mostrarProductos_tabla();
@@ -60,6 +63,14 @@ public class RegistrarProductos extends JFrame {
                 ingresoFormulario();
             }
         });
+        menuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Admin admin=new Admin();
+                admin.abrir();
+                dispose();
+            }
+        });
     }
 
     public void iniciar(){
@@ -67,6 +78,7 @@ public class RegistrarProductos extends JFrame {
         setSize(900,600);
         setLocationRelativeTo(null);
         setVisible(true);
+        this.getContentPane().setBackground(new Color(234, 211, 186));
     }
     public void ingresoFormulario(){
         String nombre = nombreP.getText();
@@ -165,6 +177,8 @@ public class RegistrarProductos extends JFrame {
                     cantidadP.setText("");
                     precioP.setText("");
                     imagen=new byte[0];
+
+
 
                 }
             }catch (SQLException e){

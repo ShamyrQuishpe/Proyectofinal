@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,6 +8,7 @@ public class Main {
         frame.setSize(400,400);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.getContentPane().setBackground(new Color(234, 211, 186));
 
     }
 }

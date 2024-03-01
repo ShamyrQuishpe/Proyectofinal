@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -57,6 +58,7 @@ public class Adduser extends JFrame {
         setSize(400,400);
         setLocationRelativeTo(null);
         setVisible(true);
+        this.getContentPane().setBackground(new Color(234, 211, 186));
     }
 
     public void ingresoFormulario(){

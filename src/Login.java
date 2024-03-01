@@ -53,8 +53,8 @@ public class Login extends JFrame {
                 vent_adm.abrir();
                 dispose();
             } else if (rol=="user") {
-                User vent_user = new User();
-                vent_user.abrir();
+                Carrito carr = new Carrito();
+                carr.iniciar();
                 dispose();
             }
         }else{

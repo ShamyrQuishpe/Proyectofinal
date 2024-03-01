@@ -1,9 +1,11 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class User extends JFrame {
-    private JButton button1;
-    private JButton button2;
+    private JButton agregarAlCarritoButton;
     private JPanel userPanel;
+    private JTable table1;
+    private JButton menuButton;
 
     public User(){
         super("PANTALLA USUARIO");
@@ -15,5 +17,6 @@ public class User extends JFrame {
         setSize(400,400);
         setLocationRelativeTo(null);
         setVisible(true);
+        this.getContentPane().setBackground(new Color(234, 211, 186));
     }
 }
