@@ -11,11 +11,10 @@ import java.sql.SQLException;
 public class Admin extends JFrame{
     private JButton agregarUsuariosButton;
     private JButton agregarProductosButton;
-    private JButton modificarUsuariosButton;
-    private JButton modificarUsuariosButton1;
     private JPanel adminPanel;
     private JButton revisionDeVentasButton;
     private JButton mostrarUsuariosButton;
+    private JButton SALIRButton;
 
     public Admin(){
         super("PANTALLA ADMIN");
@@ -23,6 +22,7 @@ public class Admin extends JFrame{
         mostrarUsuariosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 mostrarInformacion_tabla();
             }
         });
@@ -39,6 +39,18 @@ public class Admin extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 RegistrarProductos registroP = new RegistrarProductos();
                 registroP.iniciar();
+            }
+        });
+        SALIRButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Login frame = new Login();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(400,400);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+                frame.getContentPane().setBackground(new Color(234, 211, 186));
+                dispose();
             }
         });
     }

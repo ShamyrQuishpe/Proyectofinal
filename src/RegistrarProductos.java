@@ -85,6 +85,12 @@ public class RegistrarProductos extends JFrame {
 
             }
         });
+        eliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarRegistro();
+            }
+        });
     }
 
     public void iniciar(){
@@ -375,7 +381,7 @@ public class RegistrarProductos extends JFrame {
             if (filasActualizadas > 0) {
                 JOptionPane.showMessageDialog(this, "Datos actualizados correctamente.");
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el usuario con ID " + id, "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se encontró el producto con ID " + id, "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (SQLException | NumberFormatException ex) {
@@ -383,5 +389,28 @@ public class RegistrarProductos extends JFrame {
             JOptionPane.showMessageDialog(this, "Error al actualizar datos en la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    private void eliminarRegistro() {
+        BaseDatos manejadorBD = new BaseDatos();
+        int id= Integer.parseInt(buscarId.getText());
+        try (Connection conexion = manejadorBD.conexionBase();
+             PreparedStatement statement = conexion.prepareStatement("DELETE FROM repuestos WHERE idRepuestos = ?")) {
+
+            statement.setInt(1, id);
+
+            int filasEliminadas = statement.executeUpdate();
+
+            if (filasEliminadas > 0) {
+                JOptionPane.showMessageDialog(this, "Producto eliminado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró el producto con ID " + id, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException | NumberFormatException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al eliminar registro en la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
 
 }
