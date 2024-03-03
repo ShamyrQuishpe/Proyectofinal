@@ -23,11 +23,12 @@ public class RegistrarProductos extends JFrame {
     private JTable tableR;
     private JPanel panelDatos;
     private JPanel panelTabla;
-    private JTextField textField1;
+    private JTextField buscarId;
     private JButton buscarButton;
     private JButton actualizarButton;
     private JButton eliminarButton;
     private JButton menuButton;
+    private JLabel imagenLabel;
 
     private static byte[] imagen;
 
@@ -69,6 +70,19 @@ public class RegistrarProductos extends JFrame {
                 Admin admin=new Admin();
                 admin.abrir();
                 dispose();
+            }
+        });
+        actualizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ingresoFormulario1();
+            }
+        });
+        buscarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buscarProductos();
+
             }
         });
     }
@@ -114,6 +128,47 @@ public class RegistrarProductos extends JFrame {
         }else {
             try {
                 RegistrarProducto(nombre,decripcion,cantidad,precio,imagen);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+    }
+    public void ingresoFormulario1(){
+        String nombre = nombreP.getText();
+        String decripcion = descripcionP.getText();
+        int cantidad=0;
+        double precio=0;
+
+        try {
+            cantidad =Integer.parseInt(cantidadP.getText());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Solo puede ingresar numeros en cantidad");
+            cantidadP.setText("");
+            return;
+
+        }
+
+        try {
+            precio = Double.parseDouble(precioP.getText());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Solo puede ingresar numeros en precio");
+            precioP.setText("");
+            return;
+        }
+
+        System.out.println(nombre);
+        System.out.println(decripcion);
+        System.out.println(cantidad);
+        System.out.println(precio);
+        System.out.println(imagen);
+
+        if(nombre.isEmpty()||decripcion.isEmpty()||cantidadP.getText().isEmpty()||precioP.getText().isEmpty()||imagen==null){
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+        }else {
+            try {
+                actualizarDatos(nombre,decripcion,cantidad,precio,imagen);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -233,6 +288,100 @@ public class RegistrarProductos extends JFrame {
             JOptionPane.showMessageDialog(this, "Error al obtener información de la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+
+    public void buscarProductos(){
+        BaseDatos manejadorBD = new BaseDatos();
+        Connection conexion = manejadorBD.conexionBase();
+        int id= Integer.parseInt(buscarId.getText());
+
+        if (conexion != null) {
+            try {
+                // Preparar la consulta SQL para verificar la autenticación
+                String sql = "SELECT *FROM repuestos Where idRepuestos=? ";
+                try (PreparedStatement pstmt = conexion.prepareStatement(sql)) {
+                    // Establecer los valores de los parámetros en la consulta
+                    pstmt.setInt(1, id);
+// Ejecutar la consulta para obtener el resultado
+                    System.out.println("Consulta SQL: " + pstmt.toString()); // Imprimir la consulta SQL
+                    ResultSet resultSet = pstmt.executeQuery();
+
+                    // Procesar el resultado del ResultSet
+                    while (resultSet.next()) {
+                        int idProducto = resultSet.getInt("IdRepuestos");
+                        String nombre = resultSet.getString("nombreRepuesto");
+                        String descripcion = resultSet.getString("descripcion");
+                        int stock = resultSet.getInt("stock");
+                        double precio = resultSet.getDouble("precio");
+                        byte[] imagen=resultSet.getBytes("imagen");
+
+                        // Mostrar los en la interfaz gráfica
+                        nombreP.setText(nombre);
+                        descripcionP.setText(descripcion);
+                        cantidadP.setText(String.valueOf(stock));
+                        precioP.setText(String.valueOf(precio));
+
+                        if (imagen != null) {
+                            // Crear un ImageIcon a partir de los datos de la imagen
+                            ImageIcon imageIcon = new ImageIcon(imagen);
+
+                            // Escalar la imagen al tamaño de un carnet (5.5cm x 3.5cm)
+                            Image image = imageIcon.getImage();
+                            Image scaledImage = image.getScaledInstance(165, 150, Image.SCALE_SMOOTH);
+                            ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+
+                            // Establecer el ImageIcon escalado en el JLabel
+                            imagenLabel.setIcon(scaledImageIcon);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "El usuario no tiene una imagen asociada.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        //System.out.println("ID: " + idProducto + ", Nombre: " + nombre + ", Descripción: " + descripcion + ", Stock: " + stock + ", Precio: " + precio+", Imagen: "+imagen);
+
+                    }
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Imprimir el seguimiento de la pila para diagnóstico
+                JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta: " + e.getMessage());
+            } finally {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void actualizarDatos(String nombre, String descripcion, int cantidad, double precio,byte[] imageData) throws SQLException {
+        BaseDatos manejadorBD = new BaseDatos();
+        int id= Integer.parseInt(buscarId.getText());
+
+        try (Connection conexion = manejadorBD.conexionBase();
+             PreparedStatement statement = conexion.prepareStatement("UPDATE repuestos SET nombreRepuesto = ?, descripcion = ?, stock = ?, precio=?, imagen=? WHERE idRepuestos = ?")) {
+
+            // Establecer los valores de los parámetros en el PreparedStatement
+            statement.setString(1, nombre);
+            statement.setString(2, descripcion);
+            statement.setInt(3, cantidad);
+            statement.setDouble(4, precio);
+            statement.setBytes(5, imageData);
+            statement.setInt(6,id);
+
+            // Ejecutar la actualización
+            int filasActualizadas = statement.executeUpdate();
+
+            // Verificar si se realizaron actualizaciones y mostrar un mensaje correspondiente
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(this, "Datos actualizados correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró el usuario con ID " + id, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException | NumberFormatException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al actualizar datos en la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }
