@@ -67,7 +67,13 @@ public class Adduser extends JFrame {
         String contrsaña_reg = paswdField.getText();
         String cedula = cedulaField.getText();
 
-        agregarUsuarios(nombre, nusuario, contrsaña_reg, cedula);
+        if (nombre.isEmpty() || nusuario.isEmpty() || contrsaña_reg.isEmpty() || cedula.isEmpty()) {
+            // Si algún campo está vacío, muestra un mensaje de error o realiza alguna acción adecuada
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        } else {
+            // Si todos los campos están completos, llama al método agregarUsuarios
+            agregarUsuarios(nombre, nusuario, contrsaña_reg, cedula);
+        }
 
     }
 

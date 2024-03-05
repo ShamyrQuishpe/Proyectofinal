@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4a161e4-52c4-45d4-b28e-8f95286c0e97" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_j_8_3_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_j_8_2_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_j_8_2_0.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProyectoFinal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProyectoFinal.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegistrarProductos.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/RegistrarProductos.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegistrarProductos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RegistrarProductos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Adduser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Adduser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Carrito.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Carrito.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Carrito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Carrito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +36,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "312",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/PC/Downloads/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar",
+    "last_opened_file_path": "C:/Users/Ana Carvajal/Downloads/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"

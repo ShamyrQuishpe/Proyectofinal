@@ -48,6 +48,7 @@ public class Login extends JFrame {
 
         if(autenticarUsuario(usuario,contrasena, rol)){
             JOptionPane.showMessageDialog(null, "Inicio de sesion exitoso");
+            Carrito.usuarioObtener(usuario);
             if(rol=="admin"){
                 Admin vent_adm = new Admin();
                 vent_adm.abrir();
