@@ -3,11 +3,17 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 public class Carrito extends JFrame {
     private JButton regresarButton;
     private JButton agregarProductoButton;
@@ -19,6 +25,7 @@ public class Carrito extends JFrame {
     private JPanel panelcarrito;
     private JTextField idField;
     private JButton actualizarButton;
+    private JButton generarReporteButton;
     static int cantidad = 0;
     static int id_fijo = 0;
     static double precio = 0.00;
@@ -61,6 +68,53 @@ public class Carrito extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarProductos_tabla();
+            }
+        });
+        generarReporteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Document documento= new Document();
+
+                try{
+                    String ruta= System.getProperty("user.home");
+                    PdfWriter.getInstance(documento,new FileOutputStream(ruta+"/OneDrive/Escritorio/Reporte_compra.pdf"));
+
+                    System.out.println("Estoy aqui");
+                    documento.open();
+                    PdfPTable tabla= new PdfPTable(5);
+                    tabla.addCell("id_transferencia");
+                    tabla.addCell("id_producto");
+                    tabla.addCell("id_cliente");
+                    tabla.addCell("cantidad");
+                    tabla.addCell("total");
+                    System.out.println("Estoy aqui2");
+                    BaseDatos manejadorBD = new BaseDatos();
+                    Connection conexion = manejadorBD.conexionBase();
+                    String sql = "SELECT * FROM transferencia";
+
+
+                    try (PreparedStatement statement = conexion.prepareStatement(sql);
+                         ResultSet resultSet = statement.executeQuery()) {
+
+
+                        while (resultSet.next()) {
+
+                            tabla.addCell(resultSet.getString(1));
+                            tabla.addCell(resultSet.getString(2));
+                            tabla.addCell(resultSet.getString(3));
+                            tabla.addCell(resultSet.getString(4));
+                            tabla.addCell(resultSet.getString(5));
+                            System.out.println("Estoy aqui3");
+                        }
+                        documento.add(tabla);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error al obtener información de la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    documento.close();
+                    JOptionPane.showMessageDialog(null, "Reporte Generado");
+                }catch(DocumentException | HeadlessException | FileNotFoundException exe){};
+
             }
         });
     }
