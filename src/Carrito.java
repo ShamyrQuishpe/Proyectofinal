@@ -18,6 +18,7 @@ public class Carrito extends JFrame {
     private JLabel mostrartotal2;
     private JPanel panelcarrito;
     private JTextField idField;
+    private JButton actualizarButton;
     static int cantidad = 0;
     static int id_fijo = 0;
     static double precio = 0.00;
@@ -56,6 +57,12 @@ public class Carrito extends JFrame {
                 validaciones();
             }
         });
+        actualizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarProductos_tabla();
+            }
+        });
     }
 
     public void iniciar() {
@@ -75,27 +82,7 @@ public class Carrito extends JFrame {
         try (PreparedStatement statement = conexion.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
-            // Crear el modelo de tabla con los nombres de las columnas
-            DefaultTableModel tableModel = new DefaultTableModel(new Object[][]{},
-                    new String[]{"Id", "Nombre", "Descripcion", "Stock", "Precio", "Imagen"});
-
-            //Limpiar la tabla
-            for (int i = 0; i < table1.getRowCount(); i++) {
-                tableModel.removeRow(i);
-                i -= 1;
-            }
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("IdRepuestos");
-                String nombre = resultSet.getString("nombreRepuesto");
-                String descripcion = resultSet.getString("descripcion");
-                int stock = resultSet.getInt("stock");
-                double precio = resultSet.getDouble("precio");
-                byte[] imagen = resultSet.getBytes("imagen");
-
-                // Agregar fila al modelo de tabla
-                tableModel.addRow(new Object[]{id, nombre, descripcion, stock, precio, imagen});
-            }
+            DefaultTableModel tableModel = crearModeloTabla(resultSet);
 
             table1.setModel(tableModel);
 
@@ -106,7 +93,30 @@ public class Carrito extends JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al obtener información de la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
 
+    private DefaultTableModel crearModeloTabla(ResultSet resultSet) throws SQLException {
+        DefaultTableModel tableModel = new DefaultTableModel(new Object[][]{},
+                new String[]{"Id", "Nombre", "Descripcion","Stock","Precio","Imagen"});
+
+        //Limpiar la tabla
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(tableModel.getRowCount() - 1);
+        }
+
+        while (resultSet.next()) {
+            int id=resultSet.getInt("IdRepuestos");
+            String nombre = resultSet.getString("nombreRepuesto");
+            String descripcion = resultSet.getString("descripcion");
+            int stock = resultSet.getInt("stock");
+            double precio= resultSet.getDouble("precio");
+            byte[] imagen=resultSet.getBytes("imagen");
+
+            // Agregar fila al modelo de tabla
+            tableModel.addRow(new Object[]{id,nombre,descripcion,stock,precio,imagen});
+        }
+
+        return tableModel;
     }
 
     public void validaciones() {
