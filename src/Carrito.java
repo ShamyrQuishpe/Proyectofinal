@@ -20,14 +20,14 @@ public class Carrito extends JFrame {
     private JTextField idField;
     static int cantidad = 0;
     static int id_fijo = 0;
-    static double precio= 0.00;
-    static double precio_final=0.00;
+    static double precio = 0.00;
+    static double precio_final = 0.00;
 
     static String usuarioActual = "";
 
     static String cedulaUsuario = "";
 
-    public Carrito(){
+    public Carrito() {
         super("Compra");
         setContentPane(panelcarrito);
 
@@ -43,7 +43,7 @@ public class Carrito extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Login frame = new Login();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(400,400);
+                frame.setSize(400, 400);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
                 frame.getContentPane().setBackground(new Color(234, 211, 186));
@@ -57,9 +57,10 @@ public class Carrito extends JFrame {
             }
         });
     }
-    public void iniciar(){
+
+    public void iniciar() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900,600);
+        setSize(900, 600);
         setLocationRelativeTo(null);
         setVisible(true);
         this.getContentPane().setBackground(new Color(234, 211, 186));
@@ -76,7 +77,7 @@ public class Carrito extends JFrame {
 
             // Crear el modelo de tabla con los nombres de las columnas
             DefaultTableModel tableModel = new DefaultTableModel(new Object[][]{},
-                    new String[]{"Id", "Nombre", "Descripcion","Stock","Precio","Imagen"});
+                    new String[]{"Id", "Nombre", "Descripcion", "Stock", "Precio", "Imagen"});
 
             //Limpiar la tabla
             for (int i = 0; i < table1.getRowCount(); i++) {
@@ -85,15 +86,15 @@ public class Carrito extends JFrame {
             }
 
             while (resultSet.next()) {
-                int id=resultSet.getInt("IdRepuestos");
+                int id = resultSet.getInt("IdRepuestos");
                 String nombre = resultSet.getString("nombreRepuesto");
                 String descripcion = resultSet.getString("descripcion");
                 int stock = resultSet.getInt("stock");
-                double precio= resultSet.getDouble("precio");
-                byte[] imagen=resultSet.getBytes("imagen");
+                double precio = resultSet.getDouble("precio");
+                byte[] imagen = resultSet.getBytes("imagen");
 
                 // Agregar fila al modelo de tabla
-                tableModel.addRow(new Object[]{id,nombre,descripcion,stock,precio,imagen});
+                tableModel.addRow(new Object[]{id, nombre, descripcion, stock, precio, imagen});
             }
 
             table1.setModel(tableModel);
@@ -108,7 +109,7 @@ public class Carrito extends JFrame {
 
     }
 
-    public void validaciones(){
+    public void validaciones() {
         String idTexto = idField.getText().trim();
         String cantidadTexto = cantidadField.getText().trim();
 
@@ -123,49 +124,49 @@ public class Carrito extends JFrame {
         id_fijo = Integer.parseInt(idField.getText());
         int cantidadRecibida = Integer.parseInt(cantidadField.getText());
 
-        if(autenticarProducto(id_fijo)){
+        if (autenticarProducto(id_fijo)) {
             cantidadActual();
-            if(cantidadRecibida>cantidad){
+            if (cantidadRecibida > cantidad) {
                 JOptionPane.showMessageDialog(null, "El id es correcto, pero la cantidad excede el stock disponible");
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "El id es correcto, producto agregado al carrito");
-                precio_final=(cantidadRecibida*precio);
+                precio_final = (cantidadRecibida * precio);
                 mostrarTotal.setText(String.valueOf(precio_final));
                 insertarDatos(cantidadRecibida);
                 actualizarRepuesto(cantidadRecibida);
                 mostrarProductos_tabla();
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "El id es incorrecto");
             idField.setText("");
             cantidadField.setText("");
         }
     }
 
-    public boolean autenticarProducto(int id){ //FALTArol
+    public boolean autenticarProducto(int id) { //FALTArol
         BaseDatos manejadorBD = new BaseDatos();
         Connection conexion = manejadorBD.conexionBase();
 
-        if(conexion != null){
-            try{
+        if (conexion != null) {
+            try {
                 String sql = "SELECT * FROM repuestos WHERE IdRepuestos=?"; //FALTArol
-                try(PreparedStatement stmt = conexion.prepareStatement(sql)){
+                try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
                     stmt.setInt(1, id);
 
 
-                    System.out.println("Consulta sql "+stmt.toString());
+                    System.out.println("Consulta sql " + stmt.toString());
 
                     ResultSet resultSet = stmt.executeQuery();
                     return resultSet.next();
 
                 }
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta");
-            }finally {
-                try{
+            } finally {
+                try {
                     conexion.close();
-                }catch(SQLException e){
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
@@ -173,7 +174,7 @@ public class Carrito extends JFrame {
         return false;
     }
 
-    public static void cantidadActual(){
+    public static void cantidadActual() {
         BaseDatos manejadorBD = new BaseDatos();
 
         // Obtener la conexión a la base de datos
@@ -192,10 +193,10 @@ public class Carrito extends JFrame {
 
                 ResultSet resultSet = stmt.executeQuery();
 
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     cantidad = resultSet.getInt("stock");
                     System.out.println(cantidad);
-                    precio =resultSet.getDouble("precio");
+                    precio = resultSet.getDouble("precio");
                     System.out.println(precio);
                 }
             }
@@ -206,11 +207,11 @@ public class Carrito extends JFrame {
         }
     }
 
-    public static void usuarioObtener(String usuario){
-        usuarioActual=usuario;
+    public static void usuarioObtener(String usuario) {
+        usuarioActual = usuario;
     }
 
-    public static void cedulaObtener(){
+    public static void cedulaObtener() {
         BaseDatos manejadorBD = new BaseDatos();
 
         // Obtener la conexión a la base de datos
@@ -229,7 +230,7 @@ public class Carrito extends JFrame {
 
                 ResultSet resultSet = stmt.executeQuery();
 
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     cedulaUsuario = resultSet.getString("cedula");
                     System.out.println(cedulaUsuario);
                 }
@@ -241,37 +242,37 @@ public class Carrito extends JFrame {
         }
     }
 
-    public static void insertarDatos(int cantidad1){
+    public static void insertarDatos(int cantidad1) {
         BaseDatos manejadorBD = new BaseDatos();
 
         Connection conexion = manejadorBD.conexionBase();
 
-        if(conexion != null){
-            try{
+        if (conexion != null) {
+            try {
                 String sql = "INSERT INTO transferencia (id_producto, id_cliente, cantidad, total) VALUES (?,?,?,?)";
 
-                try(PreparedStatement stmt = conexion.prepareStatement(sql)){
+                try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
                     stmt.setInt(1, id_fijo);
                     stmt.setString(2, cedulaUsuario);
                     stmt.setInt(3, cantidad1);
-                    stmt.setDouble(4,precio_final);
+                    stmt.setDouble(4, precio_final);
 
                     stmt.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Registro Exitoso");
                 }
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al agregar la transaccion");
-            }finally {
-                try{
+            } finally {
+                try {
                     conexion.close();
-                }catch (SQLException e){
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
 
-    public static void actualizarRepuesto (int cantidad1){
+    public static void actualizarRepuesto(int cantidad1) {
         BaseDatos manejadorBD = new BaseDatos();
 
         // Obtener la conexión a la base de datos
@@ -285,7 +286,7 @@ public class Carrito extends JFrame {
             // Preparar la consulta SQL para obtener todos los usuarios
             String sql = "UPDATE repuestos SET stock = ? WHERE IdRepuestos = ?";
             try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
-                int nuevoCantidad = cantidad-cantidad1;
+                int nuevoCantidad = cantidad - cantidad1;
                 // Ejecutar la consulta para obtener el resultado
                 stmt.setInt(1, nuevoCantidad);
                 stmt.setInt(2, id_fijo);
@@ -300,5 +301,5 @@ public class Carrito extends JFrame {
             e.printStackTrace(); // Imprimir la traza de la pila para diagnóstico
         }
     }
-
 }
+

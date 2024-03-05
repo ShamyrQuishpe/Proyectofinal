@@ -9,6 +9,5 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.getContentPane().setBackground(new Color(234, 211, 186));
-
     }
 }

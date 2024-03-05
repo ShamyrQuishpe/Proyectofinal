@@ -53,6 +53,12 @@ public class Admin extends JFrame{
                 dispose();
             }
         });
+        revisionDeVentasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarInformacion_tablatra();
+            }
+        });
     }
     public void abrir(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,6 +109,50 @@ public class Admin extends JFrame{
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al obtener información de la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
 
+    private void mostrarInformacion_tablatra() {
+        BaseDatos manejadorBD = new BaseDatos();
+        Connection conexion = manejadorBD.conexionBase();
+        String sql = "SELECT * FROM transferencia";
+
+        try (PreparedStatement statement = conexion.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            DefaultTableModel tableModel = new DefaultTableModel(
+                    new String[]{"id_transferencia", "id_producto", "id_cliente", "cantidad", "total"}, 0);
+
+            while (resultSet.next()) {
+
+                int id_t = resultSet.getInt("id_transferencia");
+                int id_p = resultSet.getInt("id_producto");
+                String ced = resultSet.getString("id_cliente");
+                int canti = resultSet.getInt("cantidad");
+                double tot = resultSet.getInt("total");
+
+
+                // Agregar fila al modelo de tabla
+                tableModel.addRow(new Object[]{id_t, id_p, ced, canti, tot});
+            }
+
+            // Crear la tabla con el modelo de datos
+            JTable tabla = new JTable(tableModel);
+
+            // Crear el panel que contendrá la tabla
+            JPanel panelTabla = new JPanel(new BorderLayout());
+            panelTabla.add(new JScrollPane(tabla), BorderLayout.CENTER);
+
+            // Crear el marco que contendrá el panel con la tabla
+            JFrame frameTabla = new JFrame("Datos en Tabla");
+            frameTabla.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo la ventana de la tabla
+            frameTabla.getContentPane().add(panelTabla);
+            frameTabla.setSize(600, 400);
+            frameTabla.setLocationRelativeTo(this);
+            frameTabla.setVisible(true);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al obtener información de la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

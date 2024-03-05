@@ -138,8 +138,6 @@ public class RegistrarProductos extends JFrame {
                 throw new RuntimeException(e);
             }
         }
-
-
     }
     public void ingresoFormulario1(){
         String nombre = nombreP.getText();
@@ -179,9 +177,6 @@ public class RegistrarProductos extends JFrame {
                 throw new RuntimeException(e);
             }
         }
-
-
-
     }
     public  byte[] subirImagen(boolean exitImg ){
         if (!exitImg){
@@ -214,7 +209,6 @@ public class RegistrarProductos extends JFrame {
         }
         return null;
     }
-
     private void RegistrarProducto(String nombre, String descripcion, int cantidad, double precio,byte[] imageData) throws SQLException {
 
         BaseDatos manejadorBD = new BaseDatos();
@@ -238,9 +232,6 @@ public class RegistrarProductos extends JFrame {
                     cantidadP.setText("");
                     precioP.setText("");
                     imagen=new byte[0];
-
-
-
                 }
             }catch (SQLException e){
                 JOptionPane.showMessageDialog(null, "Error al agregar los datos");
@@ -410,7 +401,4 @@ public class RegistrarProductos extends JFrame {
             JOptionPane.showMessageDialog(this, "Error al eliminar registro en la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
-
 }
