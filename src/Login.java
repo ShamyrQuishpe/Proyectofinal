@@ -6,6 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Esta es la clase que autentica y valida los roles de los usuarios que intentan ingresar al sistema
+ * @author: Shamyr Quishpe
+ * @version: 2023-B
+ */
 public class Login extends JFrame {
     private JButton ingresarButton;
     private JTextField userText;
@@ -42,6 +47,12 @@ public class Login extends JFrame {
             }
         });
     }
+
+    /**
+     * Esta es la funcion que permite validar los roles de los usuarios del sistema
+     * @author: Shamyr Quishpe
+     * @version: 2023-B
+     */
     public void validaciones(){
         String usuario = userText.getText();
         String contrasena = new String(passField.getPassword());
@@ -66,6 +77,11 @@ public class Login extends JFrame {
 
 
     }
+    /**
+     * Esta es la funcion que permite autenticar el ingreso de los usuarios al sistema
+     * @author: Shamyr Quishpe
+     * @version: 2023-B
+     */
     public boolean autenticarUsuario(String nombre, String contraseña, String rol){ //FALTArol
         BaseDatos manejadorBD = new BaseDatos();
         Connection conexion = manejadorBD.conexionBase();

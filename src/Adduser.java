@@ -5,6 +5,11 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+/**
+ * Esta es la clase que se usara para el usuario con todos sus campos especificos
+ * @author: Shamyr Quishpe
+ * @version: 2023-B
+ */
 public class Adduser extends JFrame {
     private JPanel adduserPanel;
     private JButton agregarButton;
@@ -53,6 +58,11 @@ public class Adduser extends JFrame {
             }
         });
     }
+    /**
+     * Funcion para abrir el panel con sus respectivas caracteristicas
+     * @author: Shamyr Quishpe
+     * @version: 2023-B
+     */
     public void abrir(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400,400);
@@ -60,7 +70,11 @@ public class Adduser extends JFrame {
         setVisible(true);
         this.getContentPane().setBackground(new Color(234, 211, 186));
     }
-
+    /**
+     * Funcion para evaluar los campos y el como realizar el registro
+     * @author: Shamyr Quishpe
+     * @version: 2023-B
+     */
     public void ingresoFormulario(){
         String nombre = nombreField.getText();
         String nusuario = nombreUField.getText();
@@ -76,6 +90,12 @@ public class Adduser extends JFrame {
         }
 
     }
+
+    /**
+     * Funcion para agregar los nuevos usuarios con sus campos requeridos con la base de datos y su correspondiente actualizacion.
+     * @author: Shamyr Quishpe
+     * @version: 2023-B
+     */
 
     public void agregarUsuarios(String nombres, String usuarios, String contra, String cedula){
         BaseDatos manejadorBD = new BaseDatos();

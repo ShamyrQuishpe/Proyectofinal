@@ -5,20 +5,64 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4a161e4-52c4-45d4-b28e-8f95286c0e97" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_j_8_3_0.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/iText_2_0_8.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/itext5_itextpdf_5_5_12.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProyectoFinal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProyectoFinal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/driver/itext5-itextpdf-5.5.12.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BaseDatos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BaseDatos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Carrito.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Carrito.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Carrito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Carrito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RegistrarProductos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RegistrarProductos.java" afterDir="false" />
+    </list>
+    <list id="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" name="Changes by PC" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Adduser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Adduser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Carrito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Carrito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RenderImagen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RenderImagen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/Carrito.java">
+      <ranges>
+        <range start1="5" end1="7" start2="5" end2="5" changelist="f4a161e4-52c4-45d4-b28e-8f95286c0e97" />
+        <range start1="11" end1="11" start2="9" end2="14" changelist="f4a161e4-52c4-45d4-b28e-8f95286c0e97" />
+        <range start1="12" end1="16" start2="15" end2="15" changelist="f4a161e4-52c4-45d4-b28e-8f95286c0e97" />
+        <range start1="32" end1="32" start2="31" end2="32" changelist="f4a161e4-52c4-45d4-b28e-8f95286c0e97" />
+        <range start1="42" end1="48" start2="42" end2="42" changelist="f4a161e4-52c4-45d4-b28e-8f95286c0e97" />
+        <range start1="75" end1="94" start2="69" end2="69" changelist="f4a161e4-52c4-45d4-b28e-8f95286c0e97" />
+        <range start1="95" end1="117" start2="70" end2="72" changelist="f4a161e4-52c4-45d4-b28e-8f95286c0e97" />
+        <range start1="120" end1="121" start2="75" end2="80" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+        <range start1="129" end1="130" start2="88" end2="93" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+        <range start1="151" end1="151" start2="114" end2="119" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+        <range start1="174" end1="175" start2="142" end2="147" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+        <range start1="208" end1="209" start2="180" end2="185" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+        <range start1="239" end1="240" start2="215" end2="220" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+        <range start1="252" end1="253" start2="232" end2="233" changelist="f4a161e4-52c4-45d4-b28e-8f95286c0e97" />
+        <range start1="260" end1="260" start2="240" end2="241" changelist="f4a161e4-52c4-45d4-b28e-8f95286c0e97" />
+        <range start1="272" end1="273" start2="253" end2="258" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+        <range start1="276" end1="277" start2="261" end2="266" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+        <range start1="307" end1="307" start2="296" end2="301" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+        <range start1="337" end1="337" start2="331" end2="336" changelist="9cab8f48-8d9b-40da-8c9e-1af32b0d69dd" />
+      </ranges>
+    </file>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -37,8 +81,9 @@
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "189",
     "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "15",
     "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/yadir/Downloads/mysql-connector-j-8.1.0/mysql-connector-j-8.1.0/mysql-connector-j-8.1.0.jar",
+    "last_opened_file_path": "C:/Users/yadir/IdeaProjects/CLON3_PROYECTO/Proyectofinal/driver/itext5-itextpdf-5.5.12.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -48,6 +93,11 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "PLAIN_TEXT"
+    ]
   }
 }]]></component>
   <component name="SharedIndexes">

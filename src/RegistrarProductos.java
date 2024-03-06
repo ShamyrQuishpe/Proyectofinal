@@ -10,7 +10,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * Esta es la clase para que el administrador pueda ingresar, buscar, eliminar y actualizar los productos.
+ * @author: Monica Jaña- Mateo Tacuri
+ * @version: 2023-B
+ */
 public class RegistrarProductos extends JFrame {
     private JTextField nombreP;
     private JTextField cantidadP;
@@ -32,6 +36,11 @@ public class RegistrarProductos extends JFrame {
 
     private static byte[] imagen;
 
+    /**
+     * Este es el contructor de la clase RegistroProductos para inicializar la pantalla
+     * @author: Monica Jaña
+     * @version: 2023-B
+     */
     public RegistrarProductos(){
         super("Registrar Productos");
         setContentPane(panel1);
@@ -93,6 +102,11 @@ public class RegistrarProductos extends JFrame {
         });
     }
 
+    /**
+     * Esta es la funcion en la que se asigna el tamaño, la ubicacion y el color de la pantalla
+     * @author: Monica Jaña- Mateo Tacuri
+     * @version: 2023-B
+     */
     public void iniciar(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900,600);
@@ -100,6 +114,12 @@ public class RegistrarProductos extends JFrame {
         setVisible(true);
         this.getContentPane().setBackground(new Color(234, 211, 186));
     }
+
+    /**
+     * Esta es la funcion para validar los campos y el ingreso del nombre, precio, descripcion, cantidad e imagen de cada producto
+     * @author: Monica Jaña
+     * @version: 2023-B
+     */
     public void ingresoFormulario(){
         String nombre = nombreP.getText();
         String decripcion = descripcionP.getText();
@@ -178,6 +198,12 @@ public class RegistrarProductos extends JFrame {
             }
         }
     }
+
+    /**
+     * Esta es la funcion para controlar la subida de las imagenes
+     * @author: Monica Jaña- Mateo Tacuri
+     * @version: 2023-B
+     */
     public  byte[] subirImagen(boolean exitImg ){
         if (!exitImg){
             JFileChooser fileChooser = new JFileChooser();
@@ -209,6 +235,12 @@ public class RegistrarProductos extends JFrame {
         }
         return null;
     }
+
+    /**
+     * Esta es la funcion para subir los repuestos a la base de datos
+     * @author: Monica Jaña
+     * @version: 2023-B
+     */
     private void RegistrarProducto(String nombre, String descripcion, int cantidad, double precio,byte[] imageData) throws SQLException {
 
         BaseDatos manejadorBD = new BaseDatos();
@@ -244,6 +276,12 @@ public class RegistrarProductos extends JFrame {
             }
         }
     }
+
+    /**
+     * Esta es la funcion para mostrar los repuestos registrados en la base de datos
+     * @author: Monica Jaña
+     * @version: 2023-B
+     */
     private void mostrarProductos_tabla() {
         BaseDatos manejadorBD = new BaseDatos();
         Connection conexion = manejadorBD.conexionBase();
@@ -287,6 +325,11 @@ public class RegistrarProductos extends JFrame {
 
     }
 
+    /**
+     * Esta es la funcion que permite buscar  los repuestos a la base de datos
+     * @author: Monica Jaña
+     * @version: 2023-B
+     */
     public void buscarProductos(){
         BaseDatos manejadorBD = new BaseDatos();
         Connection conexion = manejadorBD.conexionBase();
@@ -350,6 +393,11 @@ public class RegistrarProductos extends JFrame {
         }
     }
 
+    /**
+     * Esta es la funcion en la que se actualizan los datos de los repuestos a la base de datos
+     * @author: Monica Jaña
+     * @version: 2023-B
+     */
     private void actualizarDatos(String nombre, String descripcion, int cantidad, double precio,byte[] imageData) throws SQLException {
         BaseDatos manejadorBD = new BaseDatos();
         int id= Integer.parseInt(buscarId.getText());
@@ -380,6 +428,12 @@ public class RegistrarProductos extends JFrame {
             JOptionPane.showMessageDialog(this, "Error al actualizar datos en la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    /**
+     * Esta es la funcion que permite eliminar  los repuestos registrados en la base de datos
+     * @author: Mateo Tacuri
+     * @version: 2023-B
+     */
     private void eliminarRegistro() {
         BaseDatos manejadorBD = new BaseDatos();
         int id= Integer.parseInt(buscarId.getText());

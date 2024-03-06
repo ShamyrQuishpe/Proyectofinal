@@ -3,17 +3,16 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+/**
+ * Clase dedicada al carrito de compras del sistemas y sus funciones
+ * @author: Mateo, Shamyr, Freddy, Miguel
+ * @version: 2023-B
+ */
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 public class Carrito extends JFrame {
     private JButton regresarButton;
     private JButton agregarProductoButton;
@@ -30,6 +29,7 @@ public class Carrito extends JFrame {
     static int id_fijo = 0;
     static double precio = 0.00;
     static double precio_final = 0.00;
+    static String producto="";
 
     static String usuarioActual = "";
 
@@ -40,12 +40,6 @@ public class Carrito extends JFrame {
         setContentPane(panelcarrito);
 
         mostrarProductos_tabla();
-        regresarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,52 +67,17 @@ public class Carrito extends JFrame {
         generarReporteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Document documento= new Document();
 
-                try{
-                    String ruta= System.getProperty("user.home");
-                    PdfWriter.getInstance(documento,new FileOutputStream(ruta+"/OneDrive/Escritorio/Reporte_compra.pdf"));
-
-                    System.out.println("Estoy aqui");
-                    documento.open();
-                    PdfPTable tabla= new PdfPTable(5);
-                    tabla.addCell("id_transferencia");
-                    tabla.addCell("id_producto");
-                    tabla.addCell("id_cliente");
-                    tabla.addCell("cantidad");
-                    tabla.addCell("total");
-                    System.out.println("Estoy aqui2");
-                    BaseDatos manejadorBD = new BaseDatos();
-                    Connection conexion = manejadorBD.conexionBase();
-                    String sql = "SELECT * FROM transferencia";
-
-
-                    try (PreparedStatement statement = conexion.prepareStatement(sql);
-                         ResultSet resultSet = statement.executeQuery()) {
-
-
-                        while (resultSet.next()) {
-
-                            tabla.addCell(resultSet.getString(1));
-                            tabla.addCell(resultSet.getString(2));
-                            tabla.addCell(resultSet.getString(3));
-                            tabla.addCell(resultSet.getString(4));
-                            tabla.addCell(resultSet.getString(5));
-                            System.out.println("Estoy aqui3");
-                        }
-                        documento.add(tabla);
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Error al obtener información de la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    documento.close();
-                    JOptionPane.showMessageDialog(null, "Reporte Generado");
-                }catch(DocumentException | HeadlessException | FileNotFoundException exe){};
-
+                factura fac=new factura(cedulaUsuario,usuarioActual,Integer.parseInt(cantidadField.getText()),producto,precio_final);
+                fac.crear_factura();
             }
         });
     }
-
+    /**
+     * funcion para abrir el panel
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
     public void iniciar() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
@@ -127,7 +86,11 @@ public class Carrito extends JFrame {
         this.getContentPane().setBackground(new Color(234, 211, 186));
         cedulaObtener();
     }
-
+    /**
+     * Funcion para mostrar los productos en una tabla
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
     private void mostrarProductos_tabla() {
         BaseDatos manejadorBD = new BaseDatos();
         Connection conexion = manejadorBD.conexionBase();
@@ -149,6 +112,11 @@ public class Carrito extends JFrame {
         }
     }
 
+    /**
+     * Funcion para la creacion del modelo de la tabla
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
     private DefaultTableModel crearModeloTabla(ResultSet resultSet) throws SQLException {
         DefaultTableModel tableModel = new DefaultTableModel(new Object[][]{},
                 new String[]{"Id", "Nombre", "Descripcion","Stock","Precio","Imagen"});
@@ -172,7 +140,11 @@ public class Carrito extends JFrame {
 
         return tableModel;
     }
-
+    /**
+     * Funcion para validar los campos vacios
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
     public void validaciones() {
         String idTexto = idField.getText().trim();
         String cantidadTexto = cantidadField.getText().trim();
@@ -206,7 +178,11 @@ public class Carrito extends JFrame {
             cantidadField.setText("");
         }
     }
-
+    /**
+     * Funcion para la busqueda de los datos de un producto en especifico
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
     public boolean autenticarProducto(int id) { //FALTArol
         BaseDatos manejadorBD = new BaseDatos();
         Connection conexion = manejadorBD.conexionBase();
@@ -237,7 +213,11 @@ public class Carrito extends JFrame {
         }
         return false;
     }
-
+    /**
+     * Funcion para establecer y obtener la cantidad actual
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
     public static void cantidadActual() {
         BaseDatos manejadorBD = new BaseDatos();
 
@@ -250,7 +230,7 @@ public class Carrito extends JFrame {
             }
 
             // Preparar la consulta SQL para obtener todos los usuarios
-            String sql = "SELECT stock, precio FROM repuestos WHERE IdRepuestos=?";
+            String sql = "SELECT nombreRepuesto, stock, precio FROM repuestos WHERE IdRepuestos=?";
             try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
                 // Ejecutar la consulta para obtener el resultado
                 stmt.setInt(1, id_fijo);
@@ -258,6 +238,7 @@ public class Carrito extends JFrame {
                 ResultSet resultSet = stmt.executeQuery();
 
                 if (resultSet.next()) {
+                    producto=resultSet.getString("nombreRepuesto");
                     cantidad = resultSet.getInt("stock");
                     System.out.println(cantidad);
                     precio = resultSet.getDouble("precio");
@@ -270,11 +251,19 @@ public class Carrito extends JFrame {
             e.printStackTrace(); // Imprimir la traza de la pila para diagnóstico
         }
     }
-
+    /**
+     * Funcion para determinar el usuario actual
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
     public static void usuarioObtener(String usuario) {
         usuarioActual = usuario;
     }
-
+    /**
+     * Funcion para obtener cedula
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
     public static void cedulaObtener() {
         BaseDatos manejadorBD = new BaseDatos();
 
@@ -305,6 +294,11 @@ public class Carrito extends JFrame {
             e.printStackTrace(); // Imprimir la traza de la pila para diagnóstico
         }
     }
+    /**
+     * Funcion para la insercion de datos a travez de la base de datos
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
 
     public static void insertarDatos(int cantidad1) {
         BaseDatos manejadorBD = new BaseDatos();
@@ -335,6 +329,11 @@ public class Carrito extends JFrame {
             }
         }
     }
+    /**
+     * Funcion para actualizacion del stock de los productos comprados
+     * @author: Mateo, Shamyr, Freddy, Miguel
+     * @version: 2023-B
+     */
 
     public static void actualizarRepuesto(int cantidad1) {
         BaseDatos manejadorBD = new BaseDatos();

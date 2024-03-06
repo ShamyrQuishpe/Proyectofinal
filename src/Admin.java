@@ -7,6 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+/**
+ * Clase para mostrar todas las funciones del administrador
+ * @author: Shamyr Quishpe
+ * @version: 2023-B
+ */
 
 public class Admin extends JFrame{
     private JButton agregarUsuariosButton;
@@ -60,6 +65,11 @@ public class Admin extends JFrame{
             }
         });
     }
+    /**
+     * Funcion para abrir el panel con sus respectivas caracteristicas
+     * @author: Shamyr Quishpe
+     * @version: 2023-B
+     */
     public void abrir(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400,400);
@@ -67,7 +77,11 @@ public class Admin extends JFrame{
         setVisible(true);
         this.getContentPane().setBackground(new Color(234, 211, 186));
     }
-
+    /**
+     * Funcion para mostrar la imformacion albergada en la base de datos con una tabla
+     * @author: Shamyr Quishpe
+     * @version: 2023-B
+     */
     private void mostrarInformacion_tabla() {
         BaseDatos manejadorBD = new BaseDatos();
         Connection conexion = manejadorBD.conexionBase();
@@ -110,6 +124,11 @@ public class Admin extends JFrame{
             JOptionPane.showMessageDialog(this, "Error al obtener información de la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    /**
+     * Funcion que dependiendo los campos se insertan en una tabla que sera mostrada
+     * @author: Shamyr Quishpe
+     * @version: 2023-B
+     */
 
     private void mostrarInformacion_tablatra() {
         BaseDatos manejadorBD = new BaseDatos();

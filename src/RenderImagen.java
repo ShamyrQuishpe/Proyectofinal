@@ -3,6 +3,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * Esta es una clase para manejar los tamañps de las imagenes de los productos ingresados por el usuario
+ * @author: Monica Jaña
+ * @version: 2023-B
+ */
 public class RenderImagen extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
